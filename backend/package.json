@@ -1,0 +1,21 @@
+{
+  "name": "ids-project",
+  "version": "1.0.0",
+  "description": "Intrusion Detection System (IDS) backend API for real-time network threat detection and alert management. Built with Node.js, Express, and PostgreSQL, the system integrates with Python-based detection engines to analyze network traffic, detect attacks (e.g., port scans, SYN floods), and store structured security alerts for monitoring and analysis.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Ofek Kuperman",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "pg": "^8.20.0"
+  }
+}

@@ -1,0 +1,212 @@
+.panel {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-light);
+  margin: 0;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: var(--spacing-md);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+}
+
+.cardLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 6px 0;
+}
+
+.cardValue {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  margin: 0;
+}
+
+.card.cyan .cardValue {
+  color: var(--accent-cyan);
+}
+
+.card.critical .cardValue {
+  color: var(--severity-critical);
+}
+
+.card.high .cardValue {
+  color: var(--severity-high);
+}
+
+.card.medium .cardValue {
+  color: var(--severity-medium);
+}
+
+.card.blue .cardValue {
+  color: var(--accent-blue);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detailCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: var(--spacing-md);
+}
+
+.detailRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.detailRow:first-child {
+  padding-top: 0;
+}
+
+.detailLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detailValue {
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.detailValueMono {
+  font-size: 13px;
+  color: var(--accent-cyan);
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.emptyHint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.sourceList,
+.typeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sourceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+}
+
+.sourceRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sourceRow:first-child {
+  padding-top: 0;
+}
+
+.sourceArrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.sourceCount {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.typeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+}
+
+.typeRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.typeRow:first-child {
+  padding-top: 0;
+}
+
+.typeName {
+  color: var(--text-light);
+  flex: 1;
+  min-width: 0;
+}
+
+.typeCount {
+  font-family: 'Fira Code', monospace;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
