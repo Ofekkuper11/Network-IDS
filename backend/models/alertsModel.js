@@ -73,17 +73,16 @@ export async function createAlert(alertData) {
   return result.rows[0]
 }
 
-export async function resolveAlert(id, resolved_by = null) {
+export async function resolveAlert(id) {
   const query = `
     UPDATE alerts
-    SET resolved = TRUE,
-        resolved_at = NOW(),
-        resolved_by = COALESCE($2, resolved_by)
+    SET resolved = true,
+        resolved_at = NOW()
     WHERE id = $1
     RETURNING *
   `
 
-  const result = await pool.query(query, [id, resolved_by])
+  const result = await pool.query(query, [id])
   return result.rows[0] ?? null
 }
 

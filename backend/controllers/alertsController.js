@@ -85,16 +85,15 @@ export async function addAlert(req, res) {
 export async function resolveAlertById(req, res) {
   try {
     const { id } = req.params
-    const { resolved_by } = req.body ?? {}
 
-    const updated = await resolveAlert(id, resolved_by ?? "frontend")
+    const updated = await resolveAlert(id)
     if (!updated) {
       return res.status(404).json({ error: "Alert not found" })
     }
 
     res.status(200).json(updated)
-  } catch (error) {
-    console.error("Error resolving alert:", error)
+  } catch (err) {
+    console.error("Error resolving alert:", err)
     res.status(500).json({ error: "Failed to resolve alert" })
   }
 }
