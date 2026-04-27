@@ -6,4 +6,5 @@ export const IMPLEMENTED_ATTACK_TYPES = [
   'ICMP Flood',
   'DNS Burst',
   'Coordinated Attack',
+  'Traffic Anomaly',
 ];
