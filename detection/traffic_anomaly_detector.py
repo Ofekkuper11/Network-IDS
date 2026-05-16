@@ -8,7 +8,7 @@ from scapy.all import sniff, IP
 _packets_processed = 0
 _start_time = time.time()
 
-BACKEND_URL = "http://YOUR_IP:3000/api/alerts"
+BACKEND_URL = "http://YOUR_IP:5000/api/alerts"
 
 WINDOW_SECONDS = 10
 ANOMALY_FACTOR = 3
