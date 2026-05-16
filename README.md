@@ -149,10 +149,10 @@ Run from multiple Kali terminals simultaneously, each with a different source IP
 
 ```bash
 # Terminal 1
-nmap -p 1-500 <TARGET_IP>
+nmap -S 192.168.1.51 -e eth0 -Pn -p 20-50 <TARGET_IP>
 
 # Terminal 2
-nmap -p 501-1000 <TARGET_IP>
+nmap -S 192.168.1.52 -e eth0 -Pn -p 51-80 <TARGET_IP>
 ```
 
 The engine triggers when 2+ IPs from the same /24 subnet scan 30+ unique ports combined.
