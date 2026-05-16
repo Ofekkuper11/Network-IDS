@@ -81,14 +81,16 @@ iface = "eth0"  # or your actual interface
 
 ### 4. Run Detection Engines
 
-Each detector runs separately:
+Each detector runs separately (requires sudo):
 
 ```bash
-python syn_flood_detector.py
-python port_scan_detector.py
-python arp_spoofing_detector.py
-python icmp_flood_detector.py
-python dns_burst_detector.py
+sudo python syn_flood_detector.py
+sudo python port_scan_detector.py
+sudo python arp_spoofing_detector.py
+sudo python icmp_flood_detector.py
+sudo python dns_burst_detector.py
+sudo python traffic_anomaly_detector.py
+sudo python distributed_attack_detector.py
 ```
 
 ---
@@ -126,14 +128,57 @@ nmap -p 1-1000 <TARGET_IP>
 ### ICMP Flood
 
 ```bash
-ping -f <TARGET_IP>
+hping3 --icmp --flood <TARGET_IP>
 ```
 
 ### DNS Burst
 
 ```bash
-for i in {1..100}; do nslookup google.com; done
+for i in {1..100}; do dig google.com @<TARGET_IP>; done
 ```
+
+### ARP Spoofing
+
+```bash
+arpspoof -i eth0 -t <TARGET_IP> <GATEWAY_IP>
+```
+
+### Distributed Port Scan
+
+Run from multiple Kali terminals simultaneously, each with a different source IP (or use separate VMs):
+
+```bash
+# Terminal 1
+nmap -p 1-500 <TARGET_IP>
+
+# Terminal 2
+nmap -p 501-1000 <TARGET_IP>
+```
+
+The engine triggers when 2+ IPs from the same /24 subnet scan 30+ unique ports combined.
+
+---
+
+## Benchmarking
+
+All 7 detection engines include built-in performance measurement. Every 1000 packets processed, the engine prints:
+
+```
+[BENCHMARK] Processed 1000 packets | Rate: 3241 pkt/s | Elapsed: 0.3s
+[BENCHMARK] Processed 2000 packets | Rate: 3198 pkt/s | Elapsed: 0.6s
+```
+
+To benchmark a specific engine, run it while sending a flood from Kali:
+
+```bash
+# Terminal 1 – run engine
+sudo python syn_flood_detector.py
+
+# Terminal 2 (Kali) – generate traffic
+hping3 -S --flood <TARGET_IP>
+```
+
+Watch the `[BENCHMARK]` lines to measure real throughput.
 
 ---
 

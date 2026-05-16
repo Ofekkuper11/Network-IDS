@@ -2,6 +2,12 @@ import time
 import requests
 from scapy.all import sniff, ARP
 
+# =========================
+# Benchmarking
+# =========================
+_packets_processed = 0
+_start_time = time.time()
+
 BACKEND_URL = "http://YOUR_HOST_IP:5000/api/alerts"
 INTERFACE = "eth0"
 
@@ -121,6 +127,12 @@ def handle_arp_reply(packet):
 
 
 def handle_packet(packet):
+    global _packets_processed, _start_time
+    _packets_processed += 1
+    if _packets_processed % 1000 == 0:
+        _elapsed = time.time() - _start_time
+        _rate = _packets_processed / _elapsed if _elapsed > 0 else 0
+        print(f"[BENCHMARK] Processed {_packets_processed} packets | Rate: {_rate:.0f} pkt/s | Elapsed: {_elapsed:.1f}s")
     if packet.haslayer(ARP) and packet[ARP].op == 2:
         handle_arp_reply(packet)
 

@@ -6,6 +6,12 @@ import requests
 from scapy.all import sniff, IP, TCP
 
 # =========================
+# Benchmarking
+# =========================
+_packets_processed = 0
+_start_time = time.time()
+
+# =========================
 # Configuration
 # =========================
 BACKEND_URL = "http://YOUR_HOST_IP:5000/api/alerts"
@@ -65,6 +71,12 @@ def send_alert(source_ip: str, destination_ip: str, destination_port: int, syn_c
 # Detection Logic
 # =========================
 def process_packet(packet) -> None:
+    global _packets_processed, _start_time
+    _packets_processed += 1
+    if _packets_processed % 1000 == 0:
+        _elapsed = time.time() - _start_time
+        _rate = _packets_processed / _elapsed if _elapsed > 0 else 0
+        print(f"[BENCHMARK] Processed {_packets_processed} packets | Rate: {_rate:.0f} pkt/s | Elapsed: {_elapsed:.1f}s")
     if not packet.haslayer(IP) or not packet.haslayer(TCP):
         return
 

@@ -2,6 +2,7 @@
 export const IMPLEMENTED_ATTACK_TYPES = [
   'SYN Flood',
   'Port Scan',
+  'Distributed Port Scan',
   'ARP Spoofing',
   'ICMP Flood',
   'DNS Burst',
