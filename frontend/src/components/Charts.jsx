@@ -105,46 +105,59 @@ export function PieChart({ data, title }) {
     ].join(' ');
 
     const midAngle = ((startAngleDeg + sliceAngleDeg / 2) * Math.PI) / 180;
-    const labelX = 100 + 110 * Math.cos(midAngle);
-    const labelY = 100 + 110 * Math.sin(midAngle);
+    const pct = (item.value / total) * 100;
+    const labelRadius = 48;
+    const labelX = 100 + labelRadius * Math.cos(midAngle);
+    const labelY = 100 + labelRadius * Math.sin(midAngle);
 
-    return { pathData, labelX, labelY, color: colors[idx % colors.length], item };
+    return {
+      pathData,
+      labelX,
+      labelY,
+      pct,
+      showLabel: pct >= 6,
+      color: colors[idx % colors.length],
+      item,
+    };
   });
 
   return (
     <div className={styles.chart}>
       <h3 className={styles.chartTitle}>{title}</h3>
       <div className={styles.pieContainer}>
-        <svg viewBox="0 0 220 220" className={styles.pieSvg}>
+        <svg viewBox="0 0 200 200" className={styles.pieSvg} aria-hidden="true">
           {slices.map((slice, idx) => (
             <g key={`slice-${idx}`}>
               <path d={slice.pathData} fill={slice.color} stroke="var(--bg-card)" strokeWidth="2" />
-              <text
-                x={slice.labelX}
-                y={slice.labelY}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="var(--text-light)"
-                fontSize="10"
-                fontWeight="bold"
-              >
-                {`${((slice.item.value / total) * 100).toFixed(0)}%`}
-              </text>
+              {slice.showLabel && (
+                <text
+                  x={slice.labelX}
+                  y={slice.labelY}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className={styles.pieLabel}
+                >
+                  {`${slice.pct.toFixed(0)}%`}
+                </text>
+              )}
             </g>
           ))}
         </svg>
         <div className={styles.pieLegend}>
-          {data.map((item, idx) => (
+          {data.map((item, idx) => {
+            const pct = ((item.value / total) * 100).toFixed(0);
+            return (
             <div key={`legend-${idx}`} className={styles.legendItem}>
               <span
                 className={styles.legendColor}
                 style={{ background: colors[idx % colors.length] }}
               ></span>
               <span className={styles.legendLabel}>
-                {item.name} ({item.value})
+                {item.name} ({item.value}) · {pct}%
               </span>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
